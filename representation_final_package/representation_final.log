@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.1.18)  18 JUN 2026 00:28
+This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.1.18)  18 JUN 2026 00:59
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -910,20 +910,7 @@ File: figures/fudan_logo.png Graphic file (type bmp)
 [4
 
 ]
-
-Package hyperref Warning: Option `pdfauthor' has already been used,
-(hyperref)                setting the option has no effect on input line 246.
-
-File: figures/fudan_background.png Graphic file (type bmp)
-<figures/fudan_background.png>
-File: figures/fudan_logo.png Graphic file (type bmp)
-<figures/fudan_logo.png>
-
-
-[5
-
-]
-Overfull \hbox (2.8935pt too wide) in paragraph at lines 335--335
+Overfull \hbox (2.8935pt too wide) in paragraph at lines 297--297
  [] 
  []
 
@@ -931,19 +918,38 @@ File: figures/fudan_logo.png Graphic file (type bmp)
 <figures/fudan_logo.png>
 
 
-[6
+[5
 
 ]
 File: figures/fudan_logo.png Graphic file (type bmp)
 <figures/fudan_logo.png>
 LaTeX Font Info:    Font shape `TU/lmss/m/it' in size <14.4> not available
-(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 355.
+(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 317.
 LaTeX Font Info:    Font shape `TU/lmss/b/n' in size <14.4> not available
-(Font)              Font shape `TU/lmss/bx/n' tried instead on input line 355.
+(Font)              Font shape `TU/lmss/bx/n' tried instead on input line 317.
 LaTeX Font Info:    Font shape `TU/lmss/b/it' in size <14.4> not available
-(Font)              Font shape `TU/lmss/bx/it' tried instead on input line 355.
+(Font)              Font shape `TU/lmss/bx/it' tried instead on input line 317.
 LaTeX Font Info:    Font shape `TU/lmss/bx/it' in size <14.4> not available
-(Font)              Font shape `TU/lmss/bx/sl' tried instead on input line 355.
+(Font)              Font shape `TU/lmss/bx/sl' tried instead on input line 317.
+
+
+[6
+
+]
+File: figures/fudan_logo.png Graphic file (type bmp)
+<figures/fudan_logo.png>
+LaTeX Font Info:    Font shape `TU/lmss/b/n' in size <9> not available
+(Font)              Font shape `TU/lmss/bx/n' tried instead on input line 348.
+LaTeX Font Info:    Font shape `TU/lmss/b/n' in size <6> not available
+(Font)              Font shape `TU/lmss/bx/n' tried instead on input line 348.
+LaTeX Font Info:    Font shape `TU/lmss/b/it' in size <9> not available
+(Font)              Font shape `TU/lmss/bx/it' tried instead on input line 348.
+LaTeX Font Info:    Font shape `TU/lmss/bx/it' in size <9> not available
+(Font)              Font shape `TU/lmss/bx/sl' tried instead on input line 348.
+LaTeX Font Info:    Font shape `TU/lmss/b/it' in size <6> not available
+(Font)              Font shape `TU/lmss/bx/it' tried instead on input line 348.
+LaTeX Font Info:    Font shape `TU/lmss/bx/it' in size <6> not available
+(Font)              Font shape `TU/lmss/bx/sl' tried instead on input line 348.
 
 
 [7
@@ -951,18 +957,6 @@ LaTeX Font Info:    Font shape `TU/lmss/bx/it' in size <14.4> not available
 ]
 File: figures/fudan_logo.png Graphic file (type bmp)
 <figures/fudan_logo.png>
-LaTeX Font Info:    Font shape `TU/lmss/b/n' in size <9> not available
-(Font)              Font shape `TU/lmss/bx/n' tried instead on input line 386.
-LaTeX Font Info:    Font shape `TU/lmss/b/n' in size <6> not available
-(Font)              Font shape `TU/lmss/bx/n' tried instead on input line 386.
-LaTeX Font Info:    Font shape `TU/lmss/b/it' in size <9> not available
-(Font)              Font shape `TU/lmss/bx/it' tried instead on input line 386.
-LaTeX Font Info:    Font shape `TU/lmss/bx/it' in size <9> not available
-(Font)              Font shape `TU/lmss/bx/sl' tried instead on input line 386.
-LaTeX Font Info:    Font shape `TU/lmss/b/it' in size <6> not available
-(Font)              Font shape `TU/lmss/bx/it' tried instead on input line 386.
-LaTeX Font Info:    Font shape `TU/lmss/bx/it' in size <6> not available
-(Font)              Font shape `TU/lmss/bx/sl' tried instead on input line 386.
 
 
 [8
@@ -982,20 +976,13 @@ File: figures/fudan_logo.png Graphic file (type bmp)
 [10
 
 ]
-File: figures/fudan_logo.png Graphic file (type bmp)
-<figures/fudan_logo.png>
-
-
-[11
-
-]
 File: figures/Figure1b_with_NewMethod.pdf Graphic file (type pdf)
 <use figures/Figure1b_with_NewMethod.pdf>
 File: figures/fudan_logo.png Graphic file (type bmp)
 <figures/fudan_logo.png>
 
 
-[12
+[11
 
 ]
 File: figures/TimeComparison_total.pdf Graphic file (type pdf)
@@ -1004,7 +991,7 @@ File: figures/fudan_logo.png Graphic file (type bmp)
 <figures/fudan_logo.png>
 
 
-[13
+[12
 
 ]
 File: figures/mmmd_epsilon_sensitivity.png Graphic file (type bmp)
@@ -1013,55 +1000,36 @@ File: figures/fudan_logo.png Graphic file (type bmp)
 <figures/fudan_logo.png>
 
 
-[14
+[13
 
 ]
 File: figures/mmmd_variance_sensitivity.png Graphic file (type bmp)
 <figures/mmmd_variance_sensitivity.png>
 
-Overfull \hbox (5.53685pt too wide) in paragraph at lines 564--564
+Overfull \hbox (5.53685pt too wide) in paragraph at lines 526--526
  [] 
  []
 
 LaTeX Font Info:    Font shape `TU/lmss/m/it' in size <8> not available
-(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 564.
+(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 526.
 File: figures/fudan_logo.png Graphic file (type bmp)
 <figures/fudan_logo.png>
 
-Overfull \vbox (4.58199pt too high) detected at line 564
+Overfull \vbox (4.58199pt too high) detected at line 526
  []
 
+
+
+[14
+
+]
+File: figures/mmmd_roc_curves.png Graphic file (type bmp)
+<figures/mmmd_roc_curves.png>
+File: figures/fudan_logo.png Graphic file (type bmp)
+<figures/fudan_logo.png>
 
 
 [15
-
-]
-LaTeX Font Info:    Font shape `TU/lmss/m/it' in size <12> not available
-(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 599.
-File: figures/mmmd_roc_curves.png Graphic file (type bmp)
-<figures/mmmd_roc_curves.png>
-File: figures/fudan_logo.png Graphic file (type bmp)
-<figures/fudan_logo.png>
-
-Overfull \vbox (38.49744pt too high) detected at line 599
- []
-
-
-
-[16
-
-]
-File: figures/mmmd_roc_curves.png Graphic file (type bmp)
-<figures/mmmd_roc_curves.png>
-File: figures/fudan_logo.png Graphic file (type bmp)
-<figures/fudan_logo.png>
-
-Overfull \vbox (38.50006pt too high) detected at line 633
- []
-
-
-
-[17
 
 ]
 File: figures/mmmd_graph_type1.png Graphic file (type bmp)
@@ -1070,7 +1038,7 @@ File: figures/fudan_logo.png Graphic file (type bmp)
 <figures/fudan_logo.png>
 
 
-[18
+[16
 
 ]
 File: figures/mmmd_skew_type1.png Graphic file (type bmp)
@@ -1078,12 +1046,12 @@ File: figures/mmmd_skew_type1.png Graphic file (type bmp)
 File: figures/fudan_logo.png Graphic file (type bmp)
 <figures/fudan_logo.png>
 
-Overfull \vbox (5.93777pt too high) detected at line 699
+Overfull \vbox (5.93777pt too high) detected at line 642
  []
 
 
 
-[19
+[17
 
 ]
 File: figures/mmmd_fig2_mixture.png Graphic file (type bmp)
@@ -1092,14 +1060,14 @@ File: figures/fudan_logo.png Graphic file (type bmp)
 <figures/fudan_logo.png>
 
 
-[20
+[18
 
 ]
 File: figures/fudan_logo.png Graphic file (type bmp)
 <figures/fudan_logo.png>
 
 
-[21
+[19
 
 ]
 File: figures/mnist_cnn_power.png Graphic file (type bmp)
@@ -1110,7 +1078,7 @@ File: figures/fudan_logo.png Graphic file (type bmp)
 <figures/fudan_logo.png>
 
 
-[22
+[20
 
 ]
 File: figures/mnist_cnn_power.png Graphic file (type bmp)
@@ -1119,27 +1087,27 @@ File: figures/fudan_logo.png Graphic file (type bmp)
 <figures/fudan_logo.png>
 
 
+[21
+
+]
+File: figures/fudan_logo.png Graphic file (type bmp)
+<figures/fudan_logo.png>
+
+
+[22
+
+]
+File: figures/fudan_logo.png Graphic file (type bmp)
+<figures/fudan_logo.png>
+
+
 [23
-
-]
-File: figures/fudan_logo.png Graphic file (type bmp)
-<figures/fudan_logo.png>
-
-
-[24
-
-]
-File: figures/fudan_logo.png Graphic file (type bmp)
-<figures/fudan_logo.png>
-
-
-[25
 
 ]
 File: figures/pathmnist_class_mixture_power.png Graphic file (type bmp)
 <figures/pathmnist_class_mixture_power.png>
 
-Overfull \hbox (7.08385pt too wide) in paragraph at lines 934--934
+Overfull \hbox (7.08385pt too wide) in paragraph at lines 877--877
 [][]  
  []
 
@@ -1147,7 +1115,7 @@ File: figures/fudan_logo.png Graphic file (type bmp)
 <figures/fudan_logo.png>
 
 
-[26
+[24
 
 ]
 File: figures/pathmnist_class_type1_zoom.png Graphic file (type bmp)
@@ -1155,14 +1123,14 @@ File: figures/pathmnist_class_type1_zoom.png Graphic file (type bmp)
 File: figures/fudan_logo.png Graphic file (type bmp)
 <figures/fudan_logo.png>
 LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <9> not available
-(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 943.
+(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 886.
 
-Overfull \vbox (14.0544pt too high) detected at line 943
+Overfull \vbox (14.0544pt too high) detected at line 886
  []
 
 
 
-[27
+[25
 
 ]
 File: figures/pathmnist_center_shift_examples.png Graphic file (type bmp)
@@ -1171,7 +1139,7 @@ File: figures/fudan_logo.png Graphic file (type bmp)
 <figures/fudan_logo.png>
 
 
-[28
+[26
 
 ]
 File: figures/pathmnist_center_shift_power.png Graphic file (type bmp)
@@ -1179,35 +1147,37 @@ File: figures/pathmnist_center_shift_power.png Graphic file (type bmp)
 File: figures/fudan_logo.png Graphic file (type bmp)
 <figures/fudan_logo.png>
 
-Overfull \vbox (17.63945pt too high) detected at line 999
+Overfull \vbox (17.63945pt too high) detected at line 942
  []
 
+
+
+[27
+
+]
+LaTeX Font Info:    Font shape `TU/lmss/m/it' in size <12> not available
+(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 1000.
+File: figures/fudan_logo.png Graphic file (type bmp)
+<figures/fudan_logo.png>
+
+
+[28
+
+]
+Underfull \hbox (badness 1092) in paragraph at lines 1038--1038
+ []$[] \OT1/cmr/m/n/7 = 50$
+ []
+
+
+Underfull \hbox (badness 1092) in paragraph at lines 1038--1038
+ []$[] \OT1/cmr/m/n/7 = 50$
+ []
+
+File: figures/fudan_logo.png Graphic file (type bmp)
+<figures/fudan_logo.png>
 
 
 [29
-
-]
-File: figures/fudan_logo.png Graphic file (type bmp)
-<figures/fudan_logo.png>
-
-
-[30
-
-]
-Underfull \hbox (badness 1092) in paragraph at lines 1095--1095
- []$[] \OT1/cmr/m/n/7 = 50$
- []
-
-
-Underfull \hbox (badness 1092) in paragraph at lines 1095--1095
- []$[] \OT1/cmr/m/n/7 = 50$
- []
-
-File: figures/fudan_logo.png Graphic file (type bmp)
-<figures/fudan_logo.png>
-
-
-[31
 
 ]
 File: figures/label8_residual_checks_two_panel.png Graphic file (type bmp)
@@ -1215,12 +1185,12 @@ File: figures/label8_residual_checks_two_panel.png Graphic file (type bmp)
 File: figures/fudan_logo.png Graphic file (type bmp)
 <figures/fudan_logo.png>
 
-Overfull \vbox (15.37247pt too high) detected at line 1104
+Overfull \vbox (15.37247pt too high) detected at line 1047
  []
 
 
 
-[32
+[30
 
 ]
 File: figures/color_domain_score_explained.png Graphic file (type bmp)
@@ -1228,16 +1198,32 @@ File: figures/color_domain_score_explained.png Graphic file (type bmp)
 File: figures/fudan_logo.png Graphic file (type bmp)
 <figures/fudan_logo.png>
 
-Overfull \vbox (3.82622pt too high) detected at line 1113
+Overfull \vbox (3.82622pt too high) detected at line 1056
  []
 
+
+
+[31
+
+]
+File: figures/color_mmmd_matching_summary.png Graphic file (type bmp)
+<figures/color_mmmd_matching_summary.png>
+File: figures/fudan_logo.png Graphic file (type bmp)
+<figures/fudan_logo.png>
+
+
+[32
+
+]
+File: figures/fudan_logo.png Graphic file (type bmp)
+<figures/fudan_logo.png>
 
 
 [33
 
 ]
-File: figures/color_mmmd_matching_summary.png Graphic file (type bmp)
-<figures/color_mmmd_matching_summary.png>
+File: figures/foundation_dataset_examples.png Graphic file (type bmp)
+<figures/foundation_dataset_examples.png>
 File: figures/fudan_logo.png Graphic file (type bmp)
 <figures/fudan_logo.png>
 
@@ -1252,27 +1238,11 @@ File: figures/fudan_logo.png Graphic file (type bmp)
 [35
 
 ]
-File: figures/foundation_dataset_examples.png Graphic file (type bmp)
-<figures/foundation_dataset_examples.png>
 File: figures/fudan_logo.png Graphic file (type bmp)
 <figures/fudan_logo.png>
 
 
 [36
-
-]
-File: figures/fudan_logo.png Graphic file (type bmp)
-<figures/fudan_logo.png>
-
-
-[37
-
-]
-File: figures/fudan_logo.png Graphic file (type bmp)
-<figures/fudan_logo.png>
-
-
-[38
 
 ]
 File: figures/foundation_bloodmnist_representation_comparison.png Graphic file (type bmp)
@@ -1281,7 +1251,7 @@ File: figures/fudan_logo.png Graphic file (type bmp)
 <figures/fudan_logo.png>
 
 
-[39
+[37
 
 ]
 File: figures/foundation_pathmnist_vs_cnn.png Graphic file (type bmp)
@@ -1290,7 +1260,7 @@ File: figures/fudan_logo.png Graphic file (type bmp)
 <figures/fudan_logo.png>
 
 
-[40
+[38
 
 ]
 File: figures/foundation_nctcrc_representation_comparison.png Graphic file (type bmp)
@@ -1299,7 +1269,7 @@ File: figures/fudan_logo.png Graphic file (type bmp)
 <figures/fudan_logo.png>
 
 
-[41
+[39
 
 ]
 File: figures/foundation_nctcrc_newmmmd_comparison.png Graphic file (type bmp)
@@ -1307,19 +1277,19 @@ File: figures/foundation_nctcrc_newmmmd_comparison.png Graphic file (type bmp)
 File: figures/fudan_logo.png Graphic file (type bmp)
 <figures/fudan_logo.png>
 
-Overfull \vbox (0.33945pt too high) detected at line 1373
+Overfull \vbox (0.33945pt too high) detected at line 1316
  []
 
 
 
-[42
+[40
 
 ]
 File: figures/fudan_logo.png Graphic file (type bmp)
 <figures/fudan_logo.png>
 
 
-[43
+[41
 
 ]
 \tf@nav=\write6
@@ -1344,12 +1314,12 @@ Package rerunfilecheck Info: File `representation_final.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 27936 strings out of 473846
- 598387 string characters out of 5733563
- 1001281 words of memory out of 5000000
- 50379 multiletter control sequences out of 15000+600000
+ 27930 strings out of 473846
+ 598260 string characters out of 5733563
+ 1001327 words of memory out of 5000000
+ 50373 multiletter control sequences out of 15000+600000
  574562 words of font info for 144 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  128i,14n,123p,576b,902s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on representation_final.pdf (43 pages).
+Output written on representation_final.pdf (41 pages).
