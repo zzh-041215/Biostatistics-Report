@@ -1,0 +1,386 @@
+% !TeX program = xelatex
+% !TeX root = covariance_final.tex
+% !TeX encoding = UTF-8
+% !TeX spellcheck = en_US
+% arara: xelatex: { interaction: nonstopmode, synctex: yes }
+%
+% Individual component: covariance-geometry side of Mahalanobis MMD.
+% Standalone deck; reuses the Fudan theme of representation_final.tex so it
+% can be merged into the combined presentation later.
+% NOTE: frametitle uses tikz remember-picture; compile xelatex TWICE.
+
+\documentclass[aspectratio=169,10pt]{beamer}
+
+\usepackage{fontspec}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{amsmath,amssymb}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,calc}
+
+\graphicspath{{figures/}}
+
+% Fudan-inspired, projector-safe palette.
+\definecolor{fudanblue}{HTML}{0B4EA2}
+\definecolor{fudanmid}{HTML}{2F68B2}
+\definecolor{fudanlight}{HTML}{EEF4FC}
+\definecolor{textgray}{HTML}{333333}
+\definecolor{mutedgray}{HTML}{6B7280}
+\definecolor{rulegray}{HTML}{D7DCE5}
+\definecolor{accentorange}{HTML}{D97904}
+\definecolor{accentgreen}{HTML}{008A5B}
+
+\newcommand{\pos}[1]{\textcolor{fudanblue}{#1}}
+\newcommand{\warn}[1]{\textcolor{accentorange}{#1}}
+\newcommand{\HL}[1]{\textcolor{accentgreen}{#1}}
+
+\setbeamertemplate{navigation symbols}{}
+\setbeamersize{text margin left=0.72cm,text margin right=0.72cm}
+\setbeamercolor{normal text}{fg=textgray,bg=white}
+\setbeamercolor{frametitle}{fg=fudanblue,bg=white}
+\setbeamercolor{item}{fg=fudanblue}
+\setbeamercolor{caption name}{fg=fudanblue}
+\setbeamerfont{frametitle}{series=\bfseries,size=\Large}
+\setbeamerfont{framesubtitle}{size=\small}
+\setbeamerfont{title}{series=\bfseries,size=\LARGE}
+\setbeamerfont{subtitle}{size=\large}
+\setbeamerfont{itemize/enumerate body}{size=\small}
+\setbeamerfont{itemize/enumerate subbody}{size=\small}
+
+\setbeamertemplate{itemize item}{\color{fudanblue}\scriptsize$\blacksquare$}
+\setbeamertemplate{itemize subitem}{\color{fudanblue}\scriptsize$\blacktriangleright$}
+
+% Titled rounded boxes used as "algorithm boxes".
+\setbeamertemplate{blocks}[rounded][shadow=false]
+\setbeamercolor{block title}{fg=white,bg=fudanblue}
+\setbeamercolor{block body}{fg=textgray,bg=fudanlight}
+
+\newcommand{\maybelogo}[2]{%
+  \IfFileExists{figures/#1}{\includegraphics[#2]{#1}}{}%
+}
+
+\newcommand{\fig}[2][]{%
+  \IfFileExists{figures/#2}{\includegraphics[#1]{#2}}{%
+    \fbox{\begin{minipage}[c][0.34\textheight][c]{0.94\linewidth}
+      \centering\small Missing figure:\\ \texttt{\detokenize{figures/#2}}
+    \end{minipage}}%
+  }%
+}
+
+\newcommand{\keyline}[1]{%
+  \vspace{0.04cm}
+  \noindent\begin{tabular}{@{}m{2.2pt}@{\hspace{0.55em}}m{0.90\linewidth}@{}}
+    {\color{accentgreen}\rule{2.2pt}{1.35em}} & \textbf{#1}
+  \end{tabular}
+  \vspace{0.09cm}
+}
+
+\setbeamertemplate{frametitle}{%
+  \begin{tikzpicture}[remember picture,overlay]
+    \node[anchor=north west,inner sep=0pt] at ($(current page.north west)+(0.78cm,0cm)$)
+      {\maybelogo{fudan_logo.png}{height=1.34cm}};
+    \node[anchor=north west,align=left,text width=0.74\paperwidth] at ($(current page.north west)+(2.58cm,-0.47cm)$)
+      {{\usebeamerfont{frametitle}\color{fudanblue}\insertframetitle\par}
+       {\usebeamerfont{framesubtitle}\color{fudanblue!72!black}\insertframesubtitle\par}};
+  \end{tikzpicture}
+  \vspace{1.04cm}
+}
+
+\setbeamertemplate{footline}{%
+  \leavevmode
+  \hbox{\hspace{0.72cm}\scriptsize\color{mutedgray}\insertframenumber/\inserttotalframenumber}
+  \vspace{0.20cm}
+}
+
+% --- math shorthands (source-level only; render exactly as in arXiv:2302.10687) ---
+\newcommand{\sfK}{\mathsf{K}}                      % kernel, sans-serif as in paper
+\newcommand{\Sig}{\hat{\boldsymbol{\Sigma}}}        % covariance estimate
+\newcommand{\Kcg}{\hat{\mathbf{K}}^{\circ}}         % centered Gram matrix: (1/m) C_m K C_m
+\newcommand{\mmdvec}{\mathrm{MMD}^2[\mathcal K,\mathcal X_m,\mathcal Y_n]} % MMD vector, full paper form
+\newcommand{\rhohat}{\hat{\rho}}
+
+\title{Stabilizing \& Accelerating Mahalanobis MMD}
+\subtitle{Pivoted-Cholesky Kernel Selection and Closure-Based Covariance}
+\author{Ruijie Li}
+\date{June 2026}
+
+
+\begin{document}
+
+{% title page
+\begin{frame}[plain]
+  \begin{tikzpicture}[remember picture,overlay]
+    \fill[white] (current page.south west) rectangle (current page.north east);
+    \begin{scope}
+      \clip ($(current page.south east)+(-5.85cm,0cm)$) --
+            ($(current page.north east)+(-2.62cm,0cm)$) --
+            (current page.north east) --
+            (current page.south east) -- cycle;
+      \IfFileExists{figures/fudan_background.png}{%
+        \node[anchor=south east,inner sep=0pt] at (current page.south east)
+          {\includegraphics[width=0.68\paperwidth,height=\paperheight]{fudan_background.png}};
+      }{%
+        \fill[fudanblue] (current page.south west) rectangle (current page.north east);
+      }
+    \end{scope}
+    \node[anchor=north west,inner sep=0pt] at ($(current page.north west)+(0.78cm,0cm)$)
+      {\maybelogo{fudan_logo.png}{height=1.75cm}};
+    \node[anchor=north west,inner sep=0pt] at ($(current page.north west)+(0.88cm,-2.58cm)$) {%
+      \begin{minipage}{0.60\paperwidth}
+        \raggedright
+        {\color{textgray}\usebeamerfont{title}\inserttitle\par}
+        \vspace{0.20cm}
+        {\color{textgray}\usebeamerfont{subtitle}\insertsubtitle\par}
+        \vspace{0.58cm}
+        {\color{textgray}\large\insertauthor\par}
+        \vspace{0.12cm}
+        {\color{textgray}\insertdate\par}
+      \end{minipage}
+    };
+  \end{tikzpicture}
+\end{frame}
+}
+
+% ===================================================================
+% SETUP -- what a two-sample test is
+% ===================================================================
+\begin{frame}{Two-Sample Testing}{The question, and what a test must provide}
+
+\vspace{0.04cm}
+We observe two samples and ask whether they come from the \emph{same} distribution:
+\[
+  \mathcal X_m=\{X_1,\dots,X_m\}\sim P,\qquad
+  \mathcal Y_n=\{Y_1,\dots,Y_n\}\sim Q,
+  \qquad
+  H_0:\ P=Q \ \ \text{vs}\ \ H_1:\ P\ne Q.
+\]
+
+\vspace{0.30cm}
+A test needs two ingredients:
+\begin{itemize}
+  \item a \textbf{statistic} that measures how different the two samples look;
+  \item a \textbf{decision rule} -- reject $H_0$ when that statistic is large.
+\end{itemize}
+
+\vspace{0.30cm}
+\keyline{The whole talk is about building a good statistic and keeping it reliable.}
+
+\end{frame}
+
+% ===================================================================
+% MMD -- the single-kernel building block
+% ===================================================================
+\begin{frame}{Maximum Mean Discrepancy (MMD)}{The single-kernel building block}
+
+\vspace{0.04cm}
+MMD measures the distance between two distributions through a \textbf{kernel} $\sfK$
+(a similarity function). Its key property: $\ \mathrm{MMD}=0 \iff P=Q$.
+
+\vspace{0.25cm}
+From data we estimate it by averaging \emph{within}-sample similarities minus
+\emph{between}-sample similarities:
+\[
+  \mathrm{MMD}^2[\sfK,\mathcal X_m,\mathcal Y_n]
+  = \underbrace{\mathcal W_{\mathcal X_m} + \mathcal W_{\mathcal Y_n}}_{\text{within}}
+    \;-\; 2\,\underbrace{\mathcal B_{\mathcal X_m,\mathcal Y_n}}_{\text{between}} .
+\]
+The single-kernel test rejects $H_0$ when this estimate is large.
+
+\vspace{0.25cm}
+\keyline{Weakness: for a Gaussian kernel $\sfK_\sigma(x,y)=e^{-\|x-y\|^2/\sigma^2}$, the bandwidth $\sigma$ fixes the scale -- small $\sigma$ sees local, large $\sigma$ sees global differences. One $\sigma$ is a gamble.}
+
+\end{frame}
+
+% ===================================================================
+% MMMD -- aggregate + statistic + rule
+% ===================================================================
+\begin{frame}{The Paper's Method: Mahalanobis MMD}{Combine many bandwidths into one statistic}
+
+\vspace{0.04cm}
+Instead of betting on one bandwidth, use $r$ kernels $\sfK_1,\dots,\sfK_r$ and collect their
+MMD estimates into a vector $\mmdvec$. Simply summing them would \emph{double-count}
+correlated kernels, so we combine them by their Mahalanobis distance -- weighting by the
+inverse covariance $\Sig^{-1}$:
+\[
+  \boxed{\;T_{m,n}=\big(\mmdvec\big)^{\!\top}\,\Sig^{-1}\,\big(\mmdvec\big)\;}
+\]
+
+\vspace{0.20cm}
+\textbf{Decision rule.} Reject $H_0$ when $T_{m,n}$ exceeds a cut-off; the cut-off is
+calibrated by a multiplier bootstrap. A large
+$T_{m,n}$ means the kernels \emph{jointly} detect a difference.
+
+\end{frame}
+
+% ===================================================================
+% Covariance -- the engine
+% ===================================================================
+\begin{frame}{The Covariance $\Sig$}{The engine behind the Mahalanobis weighting}
+
+\vspace{0.04cm}
+The weighting needs $\Sig$: the covariance of the $r$ MMD estimates under $H_0$. It is
+what puts correlated kernels on a common footing. Its empirical estimate (paper, Eq.~15) is
+\[
+  \hat\sigma_{ab}
+  =\frac{2}{\rhohat^{2}(1-\rhohat)^{2}}\cdot\frac{1}{m^{2}}
+   \sum_{1\le i,j\le m}\hat{\sfK}^{\circ}_a(X_i,X_j)\,\hat{\sfK}^{\circ}_b(X_i,X_j),
+  \qquad \rhohat=\tfrac{m}{m+n}.
+\]
+
+\vspace{0.20cm}
+Every entry is built from \textbf{kernel Gram matrices} on the $X$ sample -- and that is
+exactly where both of my fixes act.
+
+\end{frame}
+
+% ===================================================================
+% Gram + geometry -> ill-conditioned + expensive
+% ===================================================================
+\begin{frame}{Gram Matrices and a Hidden Geometry}{Why $\Sig$ is fragile and costly}
+
+\vspace{0.04cm}
+The \textbf{Gram matrix} of a kernel collects all pairwise similarities,
+$\hat{\sfK}_a=\{\sfK_a(X_i,X_j)\}$. After centering, $\Sig$ turns out to be a
+``Gram matrix of Gram matrices'' -- each entry is an inner product of two centered
+Gram matrices:
+\[
+  \hat\sigma_{ab}\ \propto\ \big\langle \Kcg_a,\,\Kcg_b\big\rangle_F,
+  \qquad \Kcg_a=\tfrac1m C_m\hat{\sfK}_aC_m
+  \qquad\Longrightarrow\qquad
+  \Sig=\text{Gram matrix of }\{\operatorname{vec}(\Kcg_a)\}.
+\]
+
+\vspace{0.18cm}
+\begin{columns}[T,totalwidth=\linewidth]
+\begin{column}{0.50\linewidth}
+\textbf{\warn{Ill-conditioned.}} Redundant bandwidths give near-identical Gram matrices,
+so $\Sig$ is near-singular; then $\Sig^{-1}$ blows up estimation noise and $H_0$ is
+over-rejected.
+\end{column}
+\begin{column}{0.46\linewidth}
+\textbf{\warn{Expensive.}} A naive build needs $R^2$ such inner products.
+\end{column}
+\end{columns}
+
+\end{frame}
+
+% ===================================================================
+% My extension overview
+% ===================================================================
+\begin{frame}{My Extension: Two Construction-Layer Fixes}{Attack the cause, not the symptom}
+
+\vspace{0.18cm}
+\begin{itemize}\setlength\itemsep{0.45cm}
+  \item \textbf{\pos{Stability.}} $\Sig$ is ill-conditioned. \HL{Fix:} prune the redundant
+        kernels \emph{before} inverting -- lazy pivoted Cholesky.
+  \item \textbf{\pos{Speed.}} The naive $O(R^2)$ build is slow. \HL{Fix:} exploit the
+        Gaussian/Laplace product structure -- multiplicative closure.
+\end{itemize}
+
+\vspace{0.35cm}
+Both act while $\Sig$ is being \emph{built}. The paper's only safeguard is a fixed ridge
+$(\Sig+\lambda I)^{-1}$ added at the \emph{solve} step, which masks the problem rather than
+removing it.
+
+\end{frame}
+
+% ===================================================================
+% Fix 1 -- stability
+% ===================================================================
+\begin{frame}{Fix 1 -- Stability: Lazy Pivoted Cholesky}{Keep only kernels that add something new}
+
+\vspace{0.04cm}
+\textbf{Idea.} Go greedily: each round keep the kernel whose Gram matrix is
+\emph{least explained} by the ones already chosen, and stop once the rest add almost
+nothing. Redundant kernels are dropped, so $R\to q\ll R$ and $\Sig$ is well-conditioned again.
+``\emph{Lazy}'': a covariance column is computed only when its kernel is picked, so the full
+$R\times R$ matrix is never formed.
+
+\vspace{0.12cm}
+\begin{block}{Lazy Pivoted-Cholesky Kernel Selection}
+\small
+\begin{enumerate}\setlength\itemsep{2.2pt}
+  \item residuals $r_j \leftarrow \Sig_{jj}$;\quad pivot $p_t=\arg\max_j r_j$;\quad
+        \textbf{stop} if $r_{p_t}\le \varepsilon\max_j \Sig_{jj}$.
+  \item fetch column $\mathcal C(p_t)=\Sig_{\cdot,p_t}$ (lazy);\quad
+        $L_{j,t}=\big(\mathcal C(p_t)_j-\textstyle\sum_{s<t}L_{j,s}L_{p_t,s}\big)/\sqrt{r_{p_t}}$.
+  \item update residuals $r_j \leftarrow r_j-L_{j,t}^{2}$;\quad repeat.
+\end{enumerate}
+\end{block}
+
+\end{frame}
+
+% ===================================================================
+% Fix 2 -- speed
+% ===================================================================
+\begin{frame}{Fix 2 -- Speed: Multiplicative Closure}{Reuse one shared function instead of $R^2$ scans}
+
+\vspace{0.04cm}
+\textbf{Idea.} Gaussian/Laplace kernels multiply into another kernel of the same
+family. So a covariance entry depends only on the \emph{sum} of the two bandwidth parameters,
+through a single shared function $H$:
+\[
+  \sfK_{t_a}\sfK_{t_b}=\sfK_{t_a+t_b}\ \ (t=1/\sigma^2),
+  \qquad
+  H(u)=\sum_{i,j} e^{-u D_{ij}},\quad D_{ij}=\|X_i-X_j\|^2 .
+\]
+On an arithmetic grid, $t_a+t_b$ takes only $2R-1$ distinct values, so we compute $O(R)$
+values of $H$ rather than $R^2$.
+
+\vspace{0.22cm}
+\begin{center}
+Covariance cost:\quad
+$\underbrace{O(R^2 m^3 + B R m^2)}_{\text{naive}}
+\;\longrightarrow\;
+\underbrace{O(R m^2 + B q m^2)}_{\text{closure + selection}}$
+\end{center}
+
+\vspace{0.10cm}
+\keyline{The heavy $m^2$ work is cached once; later steps (and each lazy column query) are cheap.}
+
+\end{frame}
+
+% ===================================================================
+% EXPERIMENTS -- one figure per page
+% ===================================================================
+\begin{frame}{Experiments: Power}{Synthetic Gaussian scale shift -- matches the paper}
+
+\begin{columns}[c,totalwidth=\linewidth]
+\begin{column}{0.60\linewidth}
+  \centering
+  \fig[width=\linewidth,height=0.66\textheight,keepaspectratio]{Figure1b_with_NewMethod.pdf}
+\end{column}
+\begin{column}{0.37\linewidth}
+  $d=2$ variance shift;\\ $x$-axis: sample size $n$,\\ $y$-axis: power.
+
+  \vspace{0.45cm}
+  The new method tracks the paper's multi-kernel test to within $4$ pp, and both
+  clearly beat the single-kernel test.
+\end{column}
+\end{columns}
+
+\end{frame}
+
+\begin{frame}{Experiments: Speed}{Large speed-up at equal kernel count}
+
+\begin{columns}[c,totalwidth=\linewidth]
+\begin{column}{0.60\linewidth}
+  \centering
+  \fig[width=\linewidth,height=0.66\textheight,keepaspectratio]{TimeComparison_total.pdf}
+\end{column}
+\begin{column}{0.37\linewidth}
+  $d=5$;\\ $x$-axis: sample size $n$,\\ $y$-axis: time per iteration.
+
+  \vspace{0.45cm}
+  At the same $R=13$: covariance $\sim16\times$ and end-to-end $\sim4.8\times$ faster;
+  cost grows \emph{linearly} in $R$, not quadratically.
+\end{column}
+\end{columns}
+
+\end{frame}
+
+% -------------------------------------------------------------------
+\end{document}
