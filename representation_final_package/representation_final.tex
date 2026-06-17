@@ -237,48 +237,6 @@ calibrated by a multiplier bootstrap. A large
 $T_{m,n}$ means the kernels \emph{jointly} detect a difference.
 
 \end{frame}
-% ===================================================================
-% PART II: CNN Representation-Assisted MMMD
-% ===================================================================
-
-\title{CNN Representation-Assisted MMMD}
-\subtitle{From Power Improvement to Biomedical Domain-Shift Interpretation}
-\author{Individual Component}
-\date{June 2026}
-
-{% title page
-\begin{frame}[plain]
-  \begin{tikzpicture}[remember picture,overlay]
-    \fill[white] (current page.south west) rectangle (current page.north east);
-    \begin{scope}
-      \clip ($(current page.south east)+(-5.85cm,0cm)$) --
-            ($(current page.north east)+(-2.62cm,0cm)$) --
-            (current page.north east) --
-            (current page.south east) -- cycle;
-      \IfFileExists{figures/fudan_background.png}{%
-        \node[anchor=south east,inner sep=0pt] at (current page.south east)
-          {\includegraphics[width=0.68\paperwidth,height=\paperheight]{fudan_background.png}};
-      }{%
-        \fill[fudanblue] (current page.south west) rectangle (current page.north east);
-      }
-    \end{scope}
-    \node[anchor=north west,inner sep=0pt] at ($(current page.north west)+(0.78cm,0cm)$)
-      {\maybelogo{fudan_logo.png}{height=1.75cm}};
-    \node[anchor=north west,inner sep=0pt] at ($(current page.north west)+(0.88cm,-2.58cm)$) {%
-      \begin{minipage}{0.60\paperwidth}
-        \raggedright
-        {\color{textgray}\usebeamerfont{title}\inserttitle\par}
-        \vspace{0.20cm}
-        {\color{textgray}\usebeamerfont{subtitle}\insertsubtitle\par}
-        \vspace{0.58cm}
-        {\color{textgray}\large\insertauthor\par}
-        \vspace{0.12cm}
-        {\color{textgray}\insertdate\par}
-      \end{minipage}
-    };
-  \end{tikzpicture}
-\end{frame}
-}
 
 % ===================================================================
 % Part 0: MMMD Kernel Extensions — Numerical Experiments (Andrew Zheng)
@@ -564,12 +522,19 @@ $\underbrace{O(R^2 m^3 + B R m^2)}_{\text{naive}}
 \end{frame}
 
 % -------------------------------------------------------------------
-\begin{frame}{Task 3a: Type-I Error Calibration}{Does MMMD maintain nominal level under the null?}
-\vspace{0.12cm}
+\begin{frame}{Task 3: Type-I Error \& ROC Analysis}{Power–Type-I trade-off across kernel families}
+\vspace{0.04cm}
 \begin{columns}[T,totalwidth=\linewidth]
-\begin{column}{0.48\linewidth}
+\begin{column}{0.52\linewidth}
   \centering
-  {\large\bfseries Type-I Error @ $\alpha=0.05$}\\[0.25em]
+  \fig[width=\linewidth]{mmmd_roc_curves.png}
+  \vspace{0.12cm}
+  {\smallnote{$d=30$, $n=100$, $B=500$, $N=200$ trials per cell. $\alpha=0.05$.}}
+\end{column}
+\begin{column}{0.44\linewidth}
+  \vspace{-0.1cm}
+  {\large\bfseries Type-I Error @ $\alpha=0.05$}\\[0.18em]
+  \small
   \begin{tabular}{lccc}
   \toprule
   Family & $r=3$ & $r=5$ & $r=10$ \\
@@ -579,57 +544,31 @@ $\underbrace{O(R^2 m^3 + B R m^2)}_{\text{naive}}
   MIXED& 0.050 & 0.050 & 0.070 \\
   \bottomrule
   \end{tabular}
-  \vspace{0.2cm}
+  \vspace{0.25cm}
 
-  \begin{itemize}
-    \item $r=3,5$: well-calibrated within $[0.02, 0.055]$
-    \item $r=10$ GEXP: inflation to 0.12 — too many kernels degrade $\hat{\Sigma}$ estimation
-    \item LAP maintains calibration at all $r$ levels
-  \end{itemize}
-\end{column}
-\begin{column}{0.48\linewidth}
-  \centering
-  \fig[width=\linewidth]{mmmd_roc_curves.png}
-\end{column}
-\end{columns}
-\vspace{-0.1cm}
-\begin{center}
-\smallnote{$d=30$, $n=100$, $B=500$, $N=200$ trials per cell.  Warning system flags Type-I outside $[0.02, 0.08]$.}
-\end{center}
-\end{frame}
-
-% -------------------------------------------------------------------
-\begin{frame}{Task 3b: ROC Analysis}{Power–Type-I trade-off across kernel families}
-\begin{columns}[T,totalwidth=\linewidth]
-\begin{column}{0.52\linewidth}
-  \fig[width=\linewidth]{mmmd_roc_curves.png}
-\end{column}
-\begin{column}{0.44\linewidth}
-  \vspace{0.3cm}
-  {\large\bfseries Vectorised ROC scan}\\[0.2em]
-  \begin{itemize}
-    \item Single bootstrap run → all $\alpha$ thresholds
-    \item $H_1$: variance scale $k=1.15$
-    \item $\alpha \in [0, 1]$, step $0.01$
-  \end{itemize}
-  \vspace{0.4cm}
-
-  \begin{center}
-  \begin{tabular}{lccc}
+  {\large\bfseries FPR \& TPR (ROC, $k=1.15$)}\\[0.18em]
+  \small
+  \begin{tabular}{lcc}
   \toprule
-  Family & FPR & TPR @ $\alpha=0.05$ \\
+  Family & FPR & TPR \\
   \midrule
   GEXP  & 0.045 & 0.500 \\
   LAP   & 0.045 & 0.495 \\
   MIXED & 0.050 & 0.435 \\
   \bottomrule
   \end{tabular}
-  \end{center}
-  \vspace{0.15cm}
-  {\small All families: FPR close to nominal 0.05;\\
-  ROC curves well above diagonal → valid test.}
+  \vspace{0.22cm}
+
+  \begin{itemize}
+    \item $r=3,5$: well-calibrated; $r=10$ GEXP inflates (0.12) — too many kernels degrade $\hat{\Sigma}$
+    \item LAP maintains calibration at all $r$; all families' ROC well above diagonal → valid test
+  \end{itemize}
 \end{column}
 \end{columns}
+\vspace{-0.08cm}
+\begin{center}
+\smallnote{Warning system flags Type-I outside $[0.02, 0.08]$. Single bootstrap run → all $\alpha$ thresholds via vectorised scan.}
+\end{center}
 \end{frame}
 
 % -------------------------------------------------------------------
