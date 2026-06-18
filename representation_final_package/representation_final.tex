@@ -713,6 +713,8 @@ Fig.2 Mixture
 
 % -------------------------------------------------------------------
 \begin{frame}{MNIST Reproduction}{Original-paper benchmark check}
+\begin{center}
+\hspace*{0.3cm}\begin{minipage}{1.1\linewidth}
 \begin{columns}[T,totalwidth=\linewidth]
 \begin{column}{0.49\linewidth}
   \centering
@@ -725,6 +727,8 @@ Fig.2 Mixture
   \fig[width=\linewidth]{mnist_cnn_type1_error_two_nulls.png}
 \end{column}
 \end{columns}
+\end{minipage}
+\end{center}
 \vspace{-0.05cm}
 \begin{center}
 \smallnote{Reproduction anchor: MNIST additive-noise power plus matched-null calibration.}
@@ -737,13 +741,12 @@ Fig.2 Mixture
 
 \begin{column}{0.60\linewidth}
   \vspace{-0.15cm}
-  \fig[width=\linewidth]{mnist_cnn_power.png}
+  \fig[width=1.2\linewidth]{mnist_cnn_power.png}
 \end{column}
 
-\begin{column}{0.36\linewidth}
+\begin{column}{0.3\linewidth}
 
-  \vspace{0.5em}
-  \small
+  \vspace{0.9em}
   \begin{itemize}
     \item Original MMMD improves kernel and bandwidth choice for a fixed input space.
     \item I compare raw pixels with CNN embeddings.
@@ -843,6 +846,7 @@ Fig.2 Mixture
 \end{tikzpicture}
 \end{center}
 
+\vspace{1.0cm}
 \end{frame}
 
 % -------------------------------------------------------------------
@@ -891,7 +895,9 @@ Fig.2 Mixture
   \fig[width=0.90\linewidth]{pathmnist_center_shift_examples.png}
 \end{center}
 \vspace{-0.20cm}
-\begin{columns}[T,totalwidth=0.92\linewidth]
+\begin{center}
+\hspace*{0.12cm}\begin{minipage}{0.92\linewidth}
+\begin{columns}[T,totalwidth=\linewidth]
 \begin{column}{0.46\linewidth}
   \centering\small\textbf{\pos{Source / internal}}: official train holdout.
 \end{column}
@@ -899,6 +905,8 @@ Fig.2 Mixture
   \centering\small\textbf{\warn{External}}: official external test center.
 \end{column}
 \end{columns}
+\end{minipage}
+\end{center}
 \end{frame}
 
 % -------------------------------------------------------------------
@@ -963,9 +971,11 @@ h=h_{\mathrm{sem}}+h_{\mathrm{res}}.
 
 \vspace{0.28cm}
 
-\begin{columns}[T,totalwidth=0.94\linewidth]
+\begin{center}
+\begin{minipage}{0.94\linewidth}
+\begin{columns}[T,totalwidth=\linewidth]
 
-\begin{column}{0.46\linewidth}
+\begin{column}{0.48\linewidth}
 \centering
 {\large\bfseries Classifier-used part}\\[0.38em]
 {\large $h_{\mathrm{sem}}=P_{\mathrm{row}(W_c)}h$}\\[0.22em]
@@ -977,7 +987,7 @@ h=h_{\mathrm{sem}}+h_{\mathrm{res}}.
 \end{minipage}
 \end{column}
 
-\begin{column}{0.46\linewidth}
+\begin{column}{0.48\linewidth}
 \centering
 {\large\bfseries Classifier-ignored part}\\[0.38em]
 {\large $h_{\mathrm{res}}=h-h_{\mathrm{sem}}$}\\[0.22em]
@@ -990,6 +1000,8 @@ h=h_{\mathrm{sem}}+h_{\mathrm{res}}.
 \end{column}
 
 \end{columns}
+\end{minipage}
+\end{center}
 
 \vspace{0.30cm}
 
@@ -1063,8 +1075,6 @@ h=h_{\mathrm{sem}}+h_{\mathrm{res}}.
   \fig[width=0.88\linewidth]{color_mmmd_matching_summary.png}
 \end{center}
 \end{frame}
-
-% -------------------------------------------------------------------
 \begin{frame}{Foundation-Encoder Component}{A two-axis extension of the CNN-MMMD experiments}
 \keyline{Keep the two-sample test fixed where possible, and vary the image representation explicitly.}
 \vspace{0.20cm}
@@ -1082,7 +1092,7 @@ h=h_{\mathrm{sem}}+h_{\mathrm{res}}.
 \textbf{\HL{Axis 2: testing layer}}
 \begin{itemize}
   \item Original paper: Gaussian multi-kernel MMMD, mainly GAUSS5/GEXP-5.
-  \item lrj extension: NEW-MMMD with covariance stabilization and kernel pruning.
+  \item Our extension: NEW-MMMD with covariance stabilization and kernel pruning.
   \item Metrics: power, Type-I error, and sample-size efficiency.
 \end{itemize}
 \end{column}
@@ -1189,7 +1199,15 @@ NCT-CRC testing layer & GEXP-5 versus NEW-MMMD across representations & Does sta
 \begin{frame}{BloodMNIST-224 Noise Study}{Task-trained CNN is most robust under image noise}
 \begin{columns}[T,totalwidth=\linewidth]
 \begin{column}{0.61\linewidth}
-  \fig[width=\linewidth,height=0.56\textheight,keepaspectratio]{foundation_bloodmnist_representation_comparison.png}
+  \fig[width=\linewidth,height=0.47\textheight,keepaspectratio]{foundation_bloodmnist_representation_comparison.png}
+  \vspace{0.18cm}
+  \scriptsize
+  \begin{tabular}{@{}m{2.2pt}@{\hspace{0.55em}}m{0.90\linewidth}@{}}
+    {\color{accentgreen}\rule{2.2pt}{3.5em}} &
+    \textbf{How to read this figure.}
+    The left panel shows power across six noise levels; the null panels check Type-I error.
+    The key pattern is robustness: CNN features degrade much more slowly than frozen encoders.
+  \end{tabular}
 \end{column}
 \begin{column}{0.35\linewidth}
   \scriptsize
@@ -1212,9 +1230,9 @@ NCT-CRC testing layer & GEXP-5 versus NEW-MMMD across representations & Does sta
 
   \vspace{0.40em}
   \begin{itemize}
-    \item CLIP and DINOv2 are strong at low-to-medium noise.
-    \item CNN final features retain high power even at heavy noise.
-    \item Matched-null Type-I error stays close to nominal after correcting the fixed-pool null design.
+    \item Frozen encoders are strong at low-to-medium noise.
+    \item CNN final features remain robust at $\sigma=1$.
+    \item Matched-null Type-I error stays near nominal.
   \end{itemize}
 \end{column}
 \end{columns}
@@ -1224,7 +1242,15 @@ NCT-CRC testing layer & GEXP-5 versus NEW-MMMD across representations & Does sta
 \begin{frame}{PathMNIST-28 Alignment Study}{DINOv2 catches up with larger sample size}
 \begin{columns}[T,totalwidth=\linewidth]
 \begin{column}{0.58\linewidth}
-  \fig[width=\linewidth,height=0.51\textheight,keepaspectratio]{foundation_pathmnist_vs_cnn.png}
+  \fig[width=\linewidth,height=0.43\textheight,keepaspectratio]{foundation_pathmnist_vs_cnn.png}
+  \vspace{0.18cm}
+  \scriptsize
+  \begin{tabular}{@{}m{2.2pt}@{\hspace{0.55em}}m{0.90\linewidth}@{}}
+    {\color{accentgreen}\rule{2.2pt}{3.6em}} &
+    \textbf{How to read this figure.}
+    The curve compares frozen encoders against trained-CNN baselines under the same mixture protocol.
+    DINOv2 needs enough samples before its pretrained features become clearly useful.
+  \end{tabular}
 \end{column}
 \begin{column}{0.38\linewidth}
   \scriptsize
@@ -1248,8 +1274,9 @@ NCT-CRC testing layer & GEXP-5 versus NEW-MMMD across representations & Does sta
 
   \vspace{0.25em}
   \begin{itemize}
-    \item DINOv2 is much stronger than CLIP once sample size grows.
-    \item Small images still favor task-trained CNNs in the small-to-medium sample regime.
+    \item DINOv2 grows quickly with sample size.
+    \item CLIP improves more slowly.
+    \item Small samples still favor trained CNN baselines.
   \end{itemize}
 \end{column}
 \end{columns}
@@ -1259,7 +1286,15 @@ NCT-CRC testing layer & GEXP-5 versus NEW-MMMD across representations & Does sta
 \begin{frame}{NCT-CRC Representation Study}{DINOv2 overtakes CNN at larger sample sizes}
 \begin{columns}[T,totalwidth=\linewidth]
 \begin{column}{0.61\linewidth}
-  \fig[width=\linewidth,height=0.56\textheight,keepaspectratio]{foundation_nctcrc_representation_comparison.png}
+  \fig[width=\linewidth,height=0.47\textheight,keepaspectratio]{foundation_nctcrc_representation_comparison.png}
+  \vspace{0.18cm}
+  \scriptsize
+  \begin{tabular}{@{}m{2.2pt}@{\hspace{0.55em}}m{0.90\linewidth}@{}}
+    {\color{accentgreen}\rule{2.2pt}{3.5em}} &
+    \textbf{How to read this figure.}
+    Power increases with sample size, but the ranking changes.
+    CNN is competitive early; DINOv2 becomes strongest once $n$ is large enough.
+  \end{tabular}
 \end{column}
 \begin{column}{0.35\linewidth}
   \scriptsize
@@ -1283,8 +1318,8 @@ NCT-CRC testing layer & GEXP-5 versus NEW-MMMD across representations & Does sta
 
   \vspace{0.40em}
   \begin{itemize}
-    \item CNN is stronger at small-to-medium sample sizes.
-    \item DINOv2 becomes best when sample size reaches 120--150.
+    \item CNN leads at small-to-medium $n$.
+    \item DINOv2 leads at $n=120$--$150$.
     \item Raw pixels remain sample-inefficient.
   \end{itemize}
 \end{column}
@@ -1296,6 +1331,14 @@ NCT-CRC testing layer & GEXP-5 versus NEW-MMMD across representations & Does sta
 \begin{columns}[T,totalwidth=\linewidth]
 \begin{column}{0.63\linewidth}
   \fig[width=\linewidth,height=0.48\textheight,keepaspectratio]{foundation_nctcrc_newmmmd_comparison.png}
+  \vspace{0.18cm}
+  \scriptsize
+  \begin{tabular}{@{}m{2.2pt}@{\hspace{0.55em}}m{0.90\linewidth}@{}}
+    {\color{accentgreen}\rule{2.2pt}{3.8em}} &
+    \textbf{How to read this figure.}
+    The left panel reports power under the NCT-CRC mixture alternative; the two right panels report matched-null Type-I error.
+    NEW-MMMD mainly improves calibration and stability, while power gains depend on representation and sample size.
+  \end{tabular}
 \end{column}
 \begin{column}{0.33\linewidth}
   \scriptsize
@@ -1306,10 +1349,9 @@ NCT-CRC testing layer & GEXP-5 versus NEW-MMMD across representations & Does sta
 
   \vspace{0.25em}
   \begin{itemize}
-    \item NEW-MMMD uses covariance stabilization and kernel pruning.
-    \item It often lowers Type-I error and improves conditioning.
-    \item It does not uniformly increase power; small samples can lose power.
-    \item At large $n$, it can match GEXP-5 for DINOv2 and CNN.
+    \item Stabilizes covariance estimation and prunes redundant kernels.
+    \item Usually improves Type-I calibration and conditioning.
+    \item Power is not uniformly higher; small samples may lose power.
   \end{itemize}
 \end{column}
 \end{columns}
@@ -1346,6 +1388,5 @@ NEW-MMMD is conservative
 \smallnote{A good embedding makes biologically meaningful differences kernel-detectable; raw pixels leave MMMD to fight high-dimensional nuisance variation directly.}
 \end{center}
 \end{frame}
-
 % -------------------------------------------------------------------
 \end{document}
